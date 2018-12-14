@@ -3,11 +3,11 @@
         <h2 class="center teal-text">Chat {{ this.name }}</h2>
         <div class="card">
             <div class="card-content">
-                <ul class="messages">
-                    <li>
-                        <span class="teal-text">Name</span>
-                        <span class="grey-text text-darken-3">message</span>
-                        <span class="grey-text time">time</span> 
+                <ul class="messages" v-chat-scroll> <!-- v-chat-scroll used for this scrollbar -->
+                    <li v-for="message in messages" :key="message.id">
+                        <span class="teal-text">{{ message.name }}</span>
+                        <span class="grey-text text-darken-3">{{ message.content }}</span>
+                        <span class="grey-text time">{{ message.timestamp }}</span> 
                     </li>
                 </ul>
             </div>
@@ -20,6 +20,8 @@
 
 <script>
 import NewMessage from '@/components/NewMessage'
+import db from '@/firebase/init'
+import moment from 'moment'
 
 export default {
     name: 'Chat',
@@ -29,8 +31,26 @@ export default {
     },
     data () {
         return {
-
+            messages: []
         }
+    },
+    created () { // when the component is first created
+        let ref = db.collection('messages').orderBy('timestamp') // sort by date
+
+        // when something changes on the database, firestore take a snapshot
+        ref.onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if(change.type == 'added'){
+                    let doc = change.doc
+                    this.messages.push({
+                        id: doc.id,
+                        name: doc.data().name,
+                        content: doc.data().content,
+                        timestamp: moment(doc.data().timestamp).format('lll') // see momentjs.com for parameters
+                    })
+                }
+            })
+        })
     }
 }
 </script>
@@ -45,7 +65,21 @@ export default {
 }
 .chat .time {
     display: block;
-    font-size: 1.2em;
+    font-size: 0.8em;
+}
+/* to scroll down*/
+.messages {
+    max-height: 300px;
+    overflow: auto; 
+}
+.messages::-webkit-scrollbar {
+    width: 3px;    
+}
+.messages::-webkit-scrollbar-track {
+    background: #DDD;
+}
+.messages::-webkit-scrollbar-thumb {;
+    background: #AAA
 }
 </style>
 
