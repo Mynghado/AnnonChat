@@ -78,8 +78,8 @@ export default {
 .messages::-webkit-scrollbar-track {
     background: #DDD;
 }
-.messages::-webkit-scrollbar-thumb {;
-    background: #AAA
+.messages::-webkit-scrollbar-thumb {
+    background: #AAA;
 }
 </style>
 

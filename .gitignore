@@ -1,4 +1,5 @@
 .DS_Store
+.firebase/
 node_modules/
 /dist/
 npm-debug.log*
@@ -13,3 +14,8 @@ src/firebase/
 *.ntvs*
 *.njsproj
 *.sln
+*.firebasesrc
+.firebaserc
+firebase.json
+firestore.indexes.json
+firestore.rules
