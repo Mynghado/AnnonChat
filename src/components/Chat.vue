@@ -1,18 +1,20 @@
 <template>
-    <div class="chat container">
-        <h2 class="center teal-text">Chat {{ this.name }}</h2>
-        <div class="card">
-            <div class="card-content">
-                <ul class="messages" v-chat-scroll> <!-- v-chat-scroll used for this scrollbar -->
-                    <li v-for="message in messages" :key="message.id">
-                        <span class="teal-text">{{ message.name }}</span>
-                        <span class="grey-text text-darken-3">{{ message.content }}</span>
-                        <span class="grey-text time">{{ message.timestamp }}</span> 
-                    </li>
-                </ul>
-            </div>
-            <div class="card-action">
-                <NewMessage :name="name" /> <!-- pass username like a property -->
+    <div id="chat">
+        <div class="chat container">
+            <h2 class="center teal-text">Chat {{ this.name }}</h2>
+            <div class="card">
+                <div class="card-content">
+                    <ul class="messages" v-chat-scroll> <!-- v-chat-scroll used for this scrollbar -->
+                        <li v-for="message in messages" :key="message.id">
+                            <span class="teal-text">{{ message.name }}</span>
+                            <span class="grey-text text-darken-3">{{ message.content }}</span>
+                            <span class="grey-text time">{{ message.timestamp }}</span> 
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action">
+                    <NewMessage :name="name" /> <!-- pass username like a property -->
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +37,9 @@ export default {
         }
     },
     created () { // when the component is first created
+        /* GET */
         let ref = db.collection('messages').orderBy('timestamp') // sort by date
+        /* --- */
 
         // when something changes on the database, firestore take a snapshot
         ref.onSnapshot(snapshot => {
@@ -44,8 +48,8 @@ export default {
                     let doc = change.doc
                     this.messages.push({
                         id: doc.id,
-                        name: doc.data().name,
                         content: doc.data().content,
+                        name: doc.data().name,
                         timestamp: moment(doc.data().timestamp).format('lll') // see momentjs.com for parameters
                     })
                 }
