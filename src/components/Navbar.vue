@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <nav class="deep-purple darken-1">
+        <nav class="byzantium">
             <div class="nav-wrapper">
                 <a href="" class="brand-logo center">AnnonChat</a>
                 <!-- permanent showing -->
@@ -22,7 +22,7 @@
                     <li><a href="#!"><i class="material-icons">account_circle</i>Connected as []</a></li>
                     <li><a href="#!"><i class="material-icons">list</i>Chat list</a></li>
                     <li><a href="#!"><i class="material-icons">add</i>Create a chat</a></li>
-                    <li><div class="divider deep-purple darken-1"></div></li>
+                    <li><div class="divider byzantium"></div></li>
                 </ul>
             </div>
         </nav>
@@ -49,5 +49,7 @@ export default {
 </script>
 
 <style>
-
+.byzantium {
+    background-color: #702963;
+}
 </style>

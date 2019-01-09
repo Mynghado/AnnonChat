@@ -2,13 +2,10 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const cors = require('cors');
 const express = require('express');
-
 const app = express();
-const appe = express();
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
-appe.use(cors({ origin: true }));
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -49,11 +46,7 @@ app.get('/num', (req, res) => {
 exports.app = functions.https.onRequest(app);*/
 
 // build multiple CRUD interfaces:
-app.get('/', (req, res) => res.send({ name: 'Yoshi' }));
-app.get('/patate', (req, res) => res.send({ name: 'Patate' }));
-
-appe.get('/', (req, res) => res.send({ name: 'Miaou' }));
-appe.get('/patate', (req, res) => res.send({ name: 'Patate' }));
+//app.get('/', (req, res) => res.send({ name: 'Yoshi' }));
 
 /*app.post('/', (req, res) => res.send(Widgets.create()));
 app.put('/:id', (req, res) => res.send(Widgets.update(req.params.id, req.body)));
@@ -63,26 +56,26 @@ app.get('/', (req, res) => res.send(Widgets.list()));*/
 // Expose Express API as a single Cloud Function:
 //exports.widgets = functions.https.onRequest(app);
 
-exports.message = functions.https.onRequest((req, res) => {
-	// https://some-firebase-app-id.cloudfunctions.net/route
-	// without trailing "/" will have req.path = null, req.url = null
-	// which won't match to your app.get('/', ...) route 
-	
+exports.chat = functions.https.onRequest((req, res) => {
+    app.use('/', require('./routes/chat.route'));
+
+    // to handle requests with "/(function)" without the last '/'
 	if (!req.path) {
 		// prepending "/" keeps query params, path params intact
 		req.url = `/${req.url}`
-	}
+    }
+    
 	return app(req, res)
 });
 
-exports.chat = functions.https.onRequest((req, res) => {
-	// https://some-firebase-app-id.cloudfunctions.net/route
-	// without trailing "/" will have req.path = null, req.url = null
-	// which won't match to your app.get('/', ...) route 
-	
+exports.message = functions.https.onRequest((req, res) => {
+    app.use('/', require('./routes/message.route'));
+
+    // to handle requests with "/(function)" without the last '/'
 	if (!req.path) {
-		// prepending "/" keeps query params, path params intact
+    // prepending "/" keeps query params, path params intact
 		req.url = `/${req.url}`
-	}
-	return appe(req, res)
+    }
+    
+	return app(req, res)
 });
