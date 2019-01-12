@@ -8,15 +8,15 @@ var router = express();
 
 router.get('/', function (req, res) {
     db.collection('messages').get().then((snapshot) => {
-        let msg = []
+        let messages = []
         snapshot.docs.forEach(doc => {
-            msg.push({
+            messages.push({
                 content: doc.data().content,
                 name: doc.data().name,
                 timestamp: doc.data().timestamp
             })
         })
-        res.status(200).json(msg);    
+        res.status(200).json(messages);    
     })
 });
 
