@@ -1,5 +1,5 @@
 const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+//const admin = require('firebase-admin');
 const cors = require('cors');
 const express = require('express');
 const app = express();
@@ -14,7 +14,7 @@ app.use(cors({ origin: true }));
 //  response.send("Hello from Firebase!");
 // });
 
-admin.initializeApp()
+//admin.initializeApp()
 
 /*exports.checkAlias = functions.https.onCall((data, context) => {
     const ref = admin.firestore().collection('messages').doc(data.name);
@@ -57,6 +57,7 @@ app.get('/', (req, res) => res.send(Widgets.list()));*/
 //exports.widgets = functions.https.onRequest(app);
 
 exports.chat = functions.https.onRequest((req, res) => {
+
     app.use('/', require('./routes/chat.route'));
 
     // to handle requests with "/(function)" without the last '/'
