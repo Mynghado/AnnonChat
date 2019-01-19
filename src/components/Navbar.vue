@@ -10,6 +10,9 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="/list"><i class="large material-icons left">list</i>Chat list</a></li>
                     <li><a href="/create"><i class="material-icons left">add</i>Create a chat</a></li>
+                    <li><router-link :to="{ name: 'Signup' }"><i class="large material-icons left">person_add</i></router-link></li> <!-- v-if to add -->
+                    <li><router-link :to="{ name: 'Login' }"><i class="large material-icons left">exit_to_app</i></router-link></li> <!-- v-if to add -->
+                    <li><router-link :to="{ name: 'Login' }"><i class="large material-icons left">power_settings_new</i></router-link></li> <!-- v-if to add -->
                 </ul>
                 <ul class="sidenav grey lighten-2" id="mobile-menu">
                     <li>
@@ -19,6 +22,9 @@
                             </div>
                         </div>
                     </li>
+                    <li><router-link :to="{ name: 'Signup' }"><i class="large material-icons left">person_add</i>Signup</router-link></li> <!-- v-if to add -->
+                    <li><router-link :to="{ name: 'Login' }"><i class="large material-icons left">exit_to_app</i>Login</router-link></li> <!-- v-if to add -->
+                    <li><router-link :to="{ name: 'Login' }"><i class="large material-icons left">power_settings_new</i>Logout</router-link></li> <!-- v-if to add -->
                     <li><a href="#!"><i class="material-icons">account_circle</i>Connected as []</a></li>
                     <li><a href="/list"><i class="material-icons">list</i>Chat list</a></li>
                     <li><a href="/create"><i class="material-icons">add</i>Create a chat</a></li>
@@ -30,22 +36,30 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
     name: 'Navbar',
     data () {
         return {
-
+            user: null
         }
     },
     methods: {
         /*enterList() {
             this.$router.push({ name: 'Home' })
         }*/
+        logout() {
+
+        }
     },
     mounted () {
         $(document).ready(function(){
             $('.sidenav').sidenav();
         });
+    },
+    created () {
+
     }
 }
 </script>
@@ -53,5 +67,13 @@ export default {
 <style>
 .byzantium {
     background-color: #702963;
+}
+
+.divider{
+    position:absolute;
+    left:50%;
+    top:10%;
+    bottom:10%;
+    border-left:1px solid white;
 }
 </style>
