@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Welcome from '@/components/Welcome'
-import Home from '@/components/Home'
+import List from '@/components/List'
 import Chat from '@/components/Chat'
+import Create from '@/components/Create'
 
 Vue.use(Router)
 
@@ -31,10 +32,10 @@ export default new Router({
       }
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-      props : true,
+      path: '/list',
+      name: 'List',
+      component: List
+      /*props : true,
       // TO the component, FROM it come from, where we go NEXT
       beforeEnter: (to, from, next) => {
         // if it's a valid props (props 'name' exists)
@@ -44,7 +45,12 @@ export default new Router({
         } else {
           next({name: 'Welcome' })
         }
-      }
+      }*/
+    },
+    {
+      path: '/create',
+      name: 'Create',
+      component: Create
     }
   ]
 })
