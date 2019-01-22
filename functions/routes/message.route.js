@@ -7,10 +7,11 @@ var express = require('express');
 var router = express();
 
 router.get('/', function (req, res) {
-    db.collection('messages').get().then((snapshot) => {
+    db.collection('messages').orderBy('timestamp').get().then((snapshot) => {
         let messages = []
         snapshot.docs.forEach(doc => {
             messages.push({
+                id: doc.id,
                 content: doc.data().content,
                 name: doc.data().name,
                 timestamp: doc.data().timestamp
@@ -20,19 +21,36 @@ router.get('/', function (req, res) {
     })
 });
 
-router.put('/', function (req, res) {
+router.put('/:id', function (req, res) {
+    db.collection('messages').doc(req.params.id).update({
+        content: req.body.content
+    })
+    .catch(err => {
+        res.status(400).json(err);
+    })
     res.status(200).json({
         message: 'PUT REQUEST FOR THE MESSAGE'
     });
 });
 
 router.post('/', function (req, res) {
+    db.collection('messages').add({
+        content: req.body.content,
+        name: req.body.name,
+        timestamp: req.body.timestamp
+    }).catch(err => {
+        res.status(400).json(err);
+    })
     res.status(200).json({
         message: 'POST REQUEST FOR THE MESSAGE'
     });
 });
 
-router.delete('/', function (req, res) {
+router.delete('/:id', function (req, res) {
+    db.collection('messages').doc(req.params.id).delete()
+    .catch(err => {
+        res.status(400).json(err);
+    })
     res.status(200).json({
         message: 'DELETE REQUEST FOR THE MESSAGE'
     });

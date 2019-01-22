@@ -11,6 +11,8 @@
 <script>
 import db from '@/firebase/init'
 import Message from '@/models/Message'
+import axios from 'axios' 
+
 
 export default {
     name: 'NewMessage', // component name
@@ -26,14 +28,20 @@ export default {
             if (this.newMessage) {
                 console.log(this.newMessage, this.name, Date.now())
                 /* POST */
-                db.collection('messages').add({
-                    content: this.newMessage,
-                    name: this.name,
-                    timestamp: Date.now()
-                }).catch(err => {
-                    console.log(err)
+                axios.post('https://us-central1-annon-chat.cloudfunctions.net/message', {
+                     content: this.newMessage,
+                     name: this.name,
+                     timestamp: Date.now()
                 })
+                // db.collection('messages').add({
+                //     content: this.newMessage,
+                //     name: this.name,
+                //     timestamp: Date.now()
+                // }).catch(err => {
+                //     console.log(err)
+                // })
                 /* --- */
+                //Message.methods.createMessage()
 
                 this.newMessage = null
                 this.feedback = null

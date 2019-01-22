@@ -27,11 +27,15 @@ export default {
                 { name: 'SuperChat', users: '5', id: '1' },
                 { name: 'Salle108', users: '9', id: '2' }
             ],
+            chien: [ 
+                { name: 'SuperChat', users: '5', id: '1' },
+                { name: 'Salle108', users: '9', id: '2' }
+            ],
         }
     },
     methods: {
         loadChats() {
-            this.chats = ch.methods.getChats()
+            this.chien = ch.methods.loadChats()
         }
     },
     mounted () {

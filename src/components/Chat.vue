@@ -1,4 +1,5 @@
 <template>
+
     <div id="chat">
         <div class="chat container">
             <h2 class="center teal-text">Chat {{ this.name }}</h2>
@@ -24,6 +25,7 @@
 import NewMessage from '@/components/NewMessage'
 import db from '@/firebase/init'
 import moment from 'moment'
+import axios from 'axios'
 
 export default {
     name: 'Chat',
@@ -43,7 +45,8 @@ export default {
 
         // when something changes on the database, firestore take a snapshot
         ref.onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(change => {
+            snapshot.docChanges()
+            (change => {
                 if(change.type == 'added'){
                     let doc = change.doc
                     this.messages.push({
@@ -55,7 +58,23 @@ export default {
                 }
             })
         })
-    }
+    },        
+    mounted() {
+        axios.get('https://us-central1-annon-chat.cloudfunctions.net/message')
+        .then((response) => {
+            for (var i = 0; i < response.data.length; i++) {
+                
+                id: response.data[i].id,
+                this.messages.push({                        
+                        content: response.data[i].content,
+                        name: response.data[i].name,
+                        timestamp: moment(response.data[i].timestamp).format('lll')
+                    })
+            }
+
+        })           
+    }               
+    
 }
 </script>
 

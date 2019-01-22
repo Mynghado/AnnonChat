@@ -4,6 +4,8 @@ import Welcome from '@/components/Welcome'
 import List from '@/components/List'
 import Chat from '@/components/Chat'
 import Create from '@/components/Create'
+import Signup from '@/components/auth/Signup'
+import Login from '@/components/auth/Login'
 
 Vue.use(Router)
 
@@ -51,6 +53,16 @@ export default new Router({
       path: '/create',
       name: 'Create',
       component: Create
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      compoennt: Login
     }
   ]
 })
