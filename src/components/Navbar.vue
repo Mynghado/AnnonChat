@@ -46,9 +46,6 @@ export default {
         }
     },
     methods: {
-        /*enterList() {
-            this.$router.push({ name: 'Home' })
-        }*/
         logout() {
 
         }
@@ -57,9 +54,6 @@ export default {
         $(document).ready(function(){
             $('.sidenav').sidenav();
         });
-    },
-    created () {
-
     }
 }
 </script>

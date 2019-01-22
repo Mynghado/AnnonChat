@@ -14,7 +14,8 @@
 
 <script>
 import db from '@/firebase/init'
-import ch from '../models/Chat'
+//import ch from '../models/Chat'
+import axios from 'axios'
 
 export default {
     name: 'List',
@@ -23,19 +24,21 @@ export default {
     },
     data () {
         return {
-            chats: [ 
-                { name: 'SuperChat', users: '5', id: '1' },
-                { name: 'Salle108', users: '9', id: '2' }
-            ],
-            chien: [ 
-                { name: 'SuperChat', users: '5', id: '1' },
-                { name: 'Salle108', users: '9', id: '2' }
-            ],
+            chats: []
         }
     },
     methods: {
         loadChats() {
-            this.chien = ch.methods.loadChats()
+            //this.chat = ch.methods.loadChats()
+            axios.get('https://us-central1-annon-chat.cloudfunctions.net/chat')
+            .then((response) => {
+                for (var i = 0; i < response.data.length; i++) {
+                    this.chats.push({
+                        id: response.data[i].id,                        
+                        name: response.data[i].name
+                    })
+                }
+            })           
         }
     },
     mounted () {

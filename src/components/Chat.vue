@@ -1,5 +1,4 @@
 <template>
-
     <div id="chat">
         <div class="chat container">
             <h2 class="center teal-text">Chat {{ this.name }}</h2>
@@ -42,11 +41,10 @@ export default {
         /* GET */
         let ref = db.collection('messages').orderBy('timestamp') // sort by date
         /* --- */
-
+    
         // when something changes on the database, firestore take a snapshot
         ref.onSnapshot(snapshot => {
-            snapshot.docChanges()
-            (change => {
+            snapshot.docChanges().forEach(change => {
                 if(change.type == 'added'){
                     let doc = change.doc
                     this.messages.push({
@@ -59,22 +57,19 @@ export default {
             })
         })
     },        
-    mounted() {
+    /*mounted() {
         axios.get('https://us-central1-annon-chat.cloudfunctions.net/message')
         .then((response) => {
             for (var i = 0; i < response.data.length; i++) {
-                
-                id: response.data[i].id,
-                this.messages.push({                        
-                        content: response.data[i].content,
-                        name: response.data[i].name,
-                        timestamp: moment(response.data[i].timestamp).format('lll')
-                    })
+                this.messages.push({     
+                    id: response.data[i].id,                   
+                    content: response.data[i].content,
+                    name: response.data[i].name,
+                    timestamp: moment(response.data[i].timestamp).format('lll')
+                })
             }
-
         })           
-    }               
-    
+    }*/               
 }
 </script>
 
