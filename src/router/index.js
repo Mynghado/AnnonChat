@@ -18,14 +18,14 @@ export default new Router({
       component: Welcome
     },
     {
-      path: '/chat',
+      path: '/chat/:id',
       name: 'Chat',
       component: Chat,
       props : true,
       // TO the component, FROM it come from, where we go NEXT
       beforeEnter: (to, from, next) => {
         // if it's a valid props (props 'name' exists)
-        if (to.params.name) {
+        if (to.params) {
           // load the component we want next
           next()
         } else {

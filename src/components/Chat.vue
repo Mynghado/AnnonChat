@@ -28,7 +28,8 @@ import axios from 'axios'
 
 export default {
     name: 'Chat',
-    props: ['name'],
+    id: this.id,
+    props: ['name', 'id'],
     components: { // don't forgot to declare components we import here
         NewMessage 
     },

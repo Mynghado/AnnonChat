@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="collection with-header">
                     <div class="collection-header"><h4>Names</h4></div>
-                    <a href="#!" class="collection-item"  v-for="chat in chats" :key="chat.id"><div class="black-text">{{ chat.name }}<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></a>
+                    <div class="collection-item" v-for="chat in chats" :key="chat.id"><div v-on:click="enterChat(chat)" class="black-text">{{ chat.name }}<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></div>
                 </div>
             </div>
         </div>
@@ -39,6 +39,9 @@ export default {
                     })
                 }
             })           
+        },
+        enterChat(chat) {
+            this.$router.push({ name: 'Chat', params: { name: this.name, id: chat.id } })
         }
     },
     mounted () {
