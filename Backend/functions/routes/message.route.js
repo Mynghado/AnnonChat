@@ -62,14 +62,22 @@ router.post('/:id', function (req, res) {
     });
 });
 
+//router.delete('/:id', function (req, res) {
+//    db.collection('messages').doc(req.params.id).delete()
+//   .catch(err => {
+//       res.status(400).json(err);
+//   })
+//   res.status(200).json({
+//       message: 'DELETE REQUEST FOR THE MESSAGE'
+//   });
+//});
+
 router.delete('/:id', function (req, res) {
-    db.collection('messages').doc(req.params.id).delete()
-    .catch(err => {
-        res.status(400).json(err);
-    })
-    res.status(200).json({
-        message: 'DELETE REQUEST FOR THE MESSAGE'
+    db.collection('chats').doc(req.params.id).collection('messages')
+        .get().then((snapshot) => {
+        snapshot.docs.forEach (doc.delete())
     });
+
 });
 
 module.exports = router;

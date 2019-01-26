@@ -34,8 +34,7 @@ router.put('/:id', function (req, res) {
 
 router.post('/', function (req, res) {
     db.collection('chats').add({
-        name: req.body.name,
-        users: req.body.users
+        name: req.body.name
     }).catch(err => {
         res.status(400).json(err);
     })
