@@ -3,7 +3,7 @@
     <div class="create container">
       <div class="card">
         <div class="card-content center-align">
-          <h2 class="teal-text">Create</h2>
+          <h2 class="teal-text">Create your chat</h2>
           <form @submit.prevent="enterChat()">
             <label for="name">Enter chat name</label>
             <input type="text" name="name" v-model="name">
@@ -18,6 +18,7 @@
 
 <script>
 
+  import axios from 'axios'
 export default {
   name: 'Create',
   components: {
@@ -33,7 +34,12 @@ export default {
     enterChat() {
       if(this.name) {
         // name of the component we want to push + props(username)
-        this.$router.push({ name: 'Chat', params: { name: this.name } })
+        axios.post('https://us-central1-annon-chat.cloudfunctions.net/chat', {
+          name: this.name,
+          users: 'test',
+          timestamp: Date.now()
+        }),
+        this.$router.push({ name: 'Welcome'})
       } else {
         this.feedback = "You must enter a name"
       }
@@ -49,7 +55,7 @@ export default {
   margin-top: 100px;
 }
 .create h2 {
-  font-size: 3em;
+  font-size: 2.6em;
 }
 .create button {
   margin: 30px auto;

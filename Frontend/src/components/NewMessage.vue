@@ -20,15 +20,17 @@ export default {
     data () {
         return {
             newMessage: null,
-            feedback: null
+            feedback: null,
+            chatid:localStorage.getItem('chatid')
         }
     },
     methods: {
         addMessage () {
             if (this.newMessage) {
                 console.log(this.newMessage, this.name, Date.now())
+                console.log(this.chatid)
                 /* POST */
-                axios.post('https://us-central1-annon-chat.cloudfunctions.net/message', {
+                axios.post('https://us-central1-annon-chat.cloudfunctions.net/message/'+this.chatid, {
                      content: this.newMessage,
                      name: this.name,
                      timestamp: Date.now()
@@ -49,6 +51,7 @@ export default {
                 this.feedback = "You must enter a message in order to send one" 
             }
         },
+
         removeMessages () {
 
         }

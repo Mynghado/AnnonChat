@@ -5,9 +5,10 @@ import App from './App'
 import router from './router'
 import VueChatScroll from 'vue-chat-scroll' // to have the last messages automatically
 
+
 Vue.use(VueChatScroll)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -15,4 +16,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});

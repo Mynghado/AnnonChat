@@ -1,10 +1,10 @@
 <template>
     <div id="list">
         <div class="list container">
-            <h2 class="center teal-text">Chat list</h2>
+            <h2 class="center teal-text">Chats list</h2>
             <div class="card">
                 <div class="collection with-header">
-                    <div class="collection-header"><h4>Names</h4></div>
+                    <div class="collection-header"><h5>Choose a chat</h5></div>
                     <div class="collection-item" v-for="chat in chats" :key="chat.id"><div v-on:click="enterChat(chat)" class="black-text">{{ chat.name }}<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></div>
                 </div>
             </div>
@@ -41,7 +41,9 @@ export default {
             })           
         },
         enterChat(chat) {
-            this.$router.push({ name: 'Chat', params: { name: this.name, id: chat.id } })
+          localStorage.setItem('chatid', chat.id)
+          localStorage.setItem('chatname',chat.name)
+            this.$router.push({ name: 'Pseudo', params: { name: this.name, id: chat.id } })
         }
     },
     mounted () {

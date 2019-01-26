@@ -1,7 +1,7 @@
 <template>
     <div id="chat">
         <div class="chat container">
-            <h2 class="center teal-text">Chat {{ this.name }}</h2>
+            <h2 class="center teal-text">Chat {{ this.chatname }}</h2>
             <div class="card">
                 <div class="card-content">
                     <ul class="messages" v-chat-scroll> <!-- v-chat-scroll used for this scrollbar -->
@@ -35,12 +35,14 @@ export default {
     },
     data () {
         return {
-            messages: []
+            messages: [],
+          chatname : null,
+          chatid : localStorage.getItem('chatid')
         }
     },
     created () { // when the component is first created
         /* GET */
-        let ref = db.collection('messages').orderBy('timestamp') // sort by date
+        let ref = db.collection('chats').doc(this.chatid).collection('messages').orderBy('timestamp') // sort by date
         /* --- */
     
         // when something changes on the database, firestore take a snapshot
@@ -57,7 +59,12 @@ export default {
                 }
             })
         })
-    },        
+    },
+    mounted(){
+      this.chatid = localStorage.getItem('chatid')
+      this.chatname = localStorage.getItem('chatname')
+      console.log(this.chatid, this.chatname, localStorage.getItem('chatid'))
+    }
     /*mounted() {
         axios.get('https://us-central1-annon-chat.cloudfunctions.net/message')
         .then((response) => {

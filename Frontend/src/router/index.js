@@ -5,6 +5,7 @@ import List from '@/components/List'
 import Chat from '@/components/Chat'
 import Create from '@/components/Create'
 import Signup from '@/components/auth/Signup'
+import Pseudo from '@/components/EnterName'
 import Login from '@/components/auth/Login'
 
 Vue.use(Router)
@@ -18,7 +19,12 @@ export default new Router({
       component: Welcome
     },
     {
-      path: '/chat/:id',
+      path: '/pseudo',
+      name: 'Pseudo',
+      component: Pseudo
+    },
+    {
+      path: '/chat',
       name: 'Chat',
       component: Chat,
       props : true,
