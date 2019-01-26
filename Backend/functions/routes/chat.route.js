@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
             chats.push({
                 id: doc.id,
                 name: doc.data().name,
-                users: doc.data().users
+               // users: doc.data().users
             })
         })
         res.status(200).json(chats);    

@@ -6,8 +6,24 @@ db.settings({ timestampsInSnapshots: true })
 var express = require('express');
 var router = express();
 
-router.get('/', function (req, res) {
-    db.collection('messages').orderBy('timestamp').get().then((snapshot) => {
+// router.get('/', function (req, res) {
+//   db.collection('messages').orderBy('timestamp').get().then((snapshot) => {
+//        let messages = []
+//        snapshot.docs.forEach(doc => {
+//            messages.push({
+//                id: doc.id,
+//                content: doc.data().content,
+//                name: doc.data().name,
+//                timestamp: doc.data().timestamp
+//            })
+//       })
+//        res.status(200).json(messages);
+//    })
+//});
+
+router.get('/:id', function (req, res) {
+    db.collection('chats').doc(req.params.id).collection('messages').orderBy('timestamp')
+        .get().then((snapshot) => {
         let messages = []
         snapshot.docs.forEach(doc => {
             messages.push({
@@ -17,7 +33,7 @@ router.get('/', function (req, res) {
                 timestamp: doc.data().timestamp
             })
         })
-        res.status(200).json(messages);    
+        res.status(200).json(messages);
     })
 });
 
@@ -33,8 +49,8 @@ router.put('/:id', function (req, res) {
     });
 });
 
-router.post('/', function (req, res) {
-    db.collection('messages').add({
+router.post('/:id', function (req, res) {
+    db.collection('chats').doc(req.params.id).collection('messages').add({
         content: req.body.content,
         name: req.body.name,
         timestamp: req.body.timestamp
