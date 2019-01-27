@@ -1,61 +1,4 @@
 # annonchat
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-
-# Requests for our Express API : (not detailed yet)
-
-GET chats :
- https://us-central1-annon-chat.cloudfunctions.net/chat
-
-GET a chat :
- https://us-central1-annon-chat.cloudfunctions.net/chat/:id
-Require : chat id
-
-GET messages from a chat :
- https://us-central1-annon-chat.cloudfunctions.net/chat/:id/message
-Require : chat id
-
-PUT a chat :
- https://us-central1-annon-chat.cloudfunctions.net/chat/:id
-Require : chat id
-Body : name
-
-POST a chat :
- https://us-central1-annon-chat.cloudfunctions.net/chat
-Body : name
-
-POST a message in a chat :
- https://us-central1-annon-chat.cloudfunctions.net/chat/:id/message
-Require : chat id
-Body : content, name, timestamp
-
-DELETE a chat with his messages :
- https://us-central1-annon-chat.cloudfunctions.net/chat/:id
-Require : chat id
-
-Codes :
-400 : communication with server
-300 : data not found
-200 : success
-
 * API Contract
 ** Chat
 *** GET chats
@@ -166,7 +109,7 @@ Codes :
      - Code : =400=
      - Content : =Problem with server communication=
 
-*** POST a message in a chat
+*** POST a message on a chat
    - Return : http code
    - Url :[[https://us-central1-annon-chat.cloudfunctions.net/chat/:id/message]]
    - Method : =POST=
@@ -201,3 +144,78 @@ Codes :
    - Error Response :
      - Code : =300=
      - Content : =Chat not found=
+
+
+
+
+
+** Message [DEPRECATED, MAY NOT WORK CORRECTLY]
+*** GET messages from a chat
+   - Return : http code
+   - Url :[[https://us-central1-annon-chat.cloudfunctions.net/message/:chatid]]
+   - Method : =GET=
+   - Required : =chatid=
+   - Success Response :
+     - Code : =200=
+     - Content :
+    [
+        {
+            "id": "dtWui71b23I39dCjPLg7",
+            "content": "haha",
+            "name": "kolmar",
+            "timestamp": 212384112115
+        },
+        {
+            "id": "wu3JaIVxGLM5tqkTGlDL",
+            "content": "kerbal",
+            "name": "l3ar",
+            "timestamp": 1548542604005
+        },
+        ...
+    }
+             
+   - Error Response :
+
+*** PUT message 
+   - Return : http code
+   - Url :[[https://us-central1-annon-chat.cloudfunctions.net/message/:id]]
+   - Method : =PUT=
+   - Required : =id=
+   - Body :
+    {
+        content: req.body.content
+    }
+   - Success Response :
+     - Code : =200=
+             
+   - Error Response :
+     - Code : =400=
+     - Content : =Problem with server communication=
+
+*** POST a message on a chat
+   - Return : http code
+   - Url :[[https://us-central1-annon-chat.cloudfunctions.net/message/:chatid]]
+   - Method : =POST=
+   - Required : =id=
+   - Body :
+    {
+        "content": "",
+        "name": "",
+        "timestamp": ""
+    }
+   - Success Response :
+     - Code : =200=
+             
+   - Error Response :
+     - Code : =300=
+     - Content : =Chat not found=
+
+*** DELETE messages from a chat
+   - Return : http code
+   - Url :[[https://us-central1-annon-chat.cloudfunctions.net/message/:chatid]]
+   - Method : =DELETE=
+   - Required : =id=
+   - Success Response :
+     - Code : =200=
+             
+   - Error Response :
