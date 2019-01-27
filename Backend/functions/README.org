@@ -214,7 +214,7 @@
    - Return : http code
    - Url :[[https://us-central1-annon-chat.cloudfunctions.net/message/:chatid]]
    - Method : =DELETE=
-   - Required : =id=
+   - Required : =chatid=
    - Success Response :
      - Code : =200=
              
