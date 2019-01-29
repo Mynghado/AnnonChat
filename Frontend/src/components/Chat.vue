@@ -6,7 +6,7 @@
                 <div class="card-content">
                     <ul class="messages" v-chat-scroll> <!-- v-chat-scroll used for this scrollbar -->
                         <li v-for="message in messages" :key="message.id">
-                            <span class="teal-text">{{ message.name }}</span>
+                            <span class="teal-text">{{ message.name }} :</span>
                             <span class="grey-text text-darken-3">{{ message.content }}</span>
                             <span class="grey-text time">{{ message.timestamp }}</span> 
                         </li>
@@ -36,8 +36,9 @@ export default {
     data () {
         return {
             messages: [],
-          chatname : null,
-          chatid : localStorage.getItem('chatid')
+            chatname : null,
+            chatid : localStorage.getItem('chatid'),
+            user: localStorage.getItem('username')
         }
     },
     created () { // when the component is first created
@@ -61,9 +62,10 @@ export default {
         })
     },
     mounted(){
-      this.chatid = localStorage.getItem('chatid')
-      this.chatname = localStorage.getItem('chatname')
-      console.log(this.chatid, this.chatname, localStorage.getItem('chatid'))
+        this.chatid = localStorage.getItem('chatid')
+        this.chatname = localStorage.getItem('chatname')
+        console.log(this.chatid, this.chatname, localStorage.getItem('chatid'))
+        console.log(this.id)
     }
     /*mounted() {
         axios.get('https://us-central1-annon-chat.cloudfunctions.net/message')

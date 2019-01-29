@@ -18,7 +18,7 @@
 
 <script>
 
-  import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'Create',
   components: {
@@ -35,9 +35,7 @@ export default {
       if(this.name) {
         // name of the component we want to push + props(username)
         axios.post('https://us-central1-annon-chat.cloudfunctions.net/chat', {
-          name: this.name,
-          users: 'test',
-          timestamp: Date.now()
+          name: this.name
         }),
         this.$router.push({ name: 'Welcome'})
       } else {

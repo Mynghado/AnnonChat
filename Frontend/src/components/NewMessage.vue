@@ -21,18 +21,19 @@ export default {
         return {
             newMessage: null,
             feedback: null,
-            chatid:localStorage.getItem('chatid')
+            chatid: localStorage.getItem('chatid'),
+            user: localStorage.getItem('username')
         }
     },
     methods: {
         addMessage () {
             if (this.newMessage) {
-                console.log(this.newMessage, this.name, Date.now())
+                console.log(this.newMessage, this.user, Date.now())
                 console.log(this.chatid)
                 /* POST */
                 axios.post('https://us-central1-annon-chat.cloudfunctions.net/message/'+this.chatid, {
                      content: this.newMessage,
-                     name: this.name,
+                     name: this.user,
                      timestamp: Date.now()
                 })
                 // db.collection('messages').add({
@@ -50,10 +51,6 @@ export default {
             } else {
                 this.feedback = "You must enter a message in order to send one" 
             }
-        },
-
-        removeMessages () {
-
         }
     }
 }
